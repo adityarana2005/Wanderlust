@@ -47,9 +47,9 @@ app.listen(8080,() => {
     console.log("server is listening to port 8080");
 });
 
-// app.get("/" , (req,res) => {
-//     res.send("Hi, I am root");
-// });
+app.get("/" , (req,res) => {
+     res.redirect("/listings");
+});
 
 const store = MongoStore.create({
     mongoUrl: dbUrl,
