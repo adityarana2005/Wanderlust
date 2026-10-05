@@ -47,10 +47,6 @@ app.listen(8080,() => {
     console.log("server is listening to port 8080");
 });
 
-app.get("/" , (req,res) => {
-     res.redirect("/listings");
-});
-
 const store = MongoStore.create({
     mongoUrl: dbUrl,
     crypto: {
@@ -96,6 +92,10 @@ app.use((req,res,next) => {
 app.use("/listings", listingRouter);
 app.use("/listings/:id/reviews", reviewRouter);
 app.use("/", userRouter);
+
+app.get("/" , (req,res) => {
+     res.redirect("/listings");
+});
 
 // app.get("/demoUser", async (req,res) => {
 //     let fakeUser = new User({
