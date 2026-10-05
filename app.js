@@ -43,13 +43,6 @@ async function main() {
     await mongoose.connect(dbUrl);
 }
 
-const port = process.env.PORT || 8080;
-
-app.listen(port, () => {
-    console.log(`server is listening on port ${port}`);
-});
-
-
 const store = MongoStore.create({
     mongoUrl: dbUrl,
     crypto: {
@@ -58,7 +51,7 @@ const store = MongoStore.create({
     touchAfter: 24 * 3600,
 });
 
-store.on("error", () => {
+store.on("error", (err) => {
     console.log("ERROR in MONGO SESSION STORE", err);
 })
 
@@ -87,7 +80,7 @@ passport.deserializeUser(User.deserializeUser());
 app.use((req,res,next) => {
     res.locals.success = req.flash("success");
     res.locals.error = req.flash("error");
-    res.locals.currUser = req.user;
+    res.locals.currUser = req.user || null;
     //console.log(res.locals.success);
     next();
 });
@@ -117,4 +110,10 @@ app.use((err,req,res,next) => {
     let {statusCode=500, message="Something went wrong!"} = err;
     res.status(statusCode).render("error.ejs",{err});
     //res.status(statusCode).send(message);
+});
+
+const port = process.env.PORT || 8080;
+
+app.listen(port, () => {
+    console.log(`server is listening on port ${port}`);
 });
