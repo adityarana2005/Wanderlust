@@ -76,3 +76,18 @@ module.exports.destroyListing = async(req,res) => {
     req.flash("success", "Listing Deleted!");
     res.redirect('/listings');
 };
+
+module.exports.searchListings = async (req, res) => {
+    const { q } = req.query;
+    if (!q || !q.trim()) {
+        return res.redirect("/listings");
+    }
+    const allListings = await Listing.find({
+        $or: [
+            { title: { $regex: q.trim(), $options: "i" } },
+            { location: { $regex: q.trim(), $options: "i" } },
+            { country: { $regex: q.trim(), $options: "i" } }
+        ]
+    });
+    res.render("listings/index.ejs", { allListings });
+};

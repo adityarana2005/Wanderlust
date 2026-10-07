@@ -16,6 +16,7 @@ router.route("/")
 //New Route
 router.get("/new", isLoggedIn, listingController.renderNewForm);
 
+router.get("/search", wrapAsync(listingController.searchListings));//Search Route
 
 router.route("/:id")
 .get(wrapAsync(listingController.showListing))   //Show Route

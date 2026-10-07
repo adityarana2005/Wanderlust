@@ -4,6 +4,7 @@
     color: #fff;
     border-radius: 25px;
     padding: 0 1rem 0 1rem;
+    width: 270px;
   }
 
   .search-btn:hover {
@@ -13,12 +14,13 @@
 
   .search-btn i {
     display: inline;
-    margin-right: 0.5rem;
+    margin: 0  1rem 0 1rem; 
   }
 
   .search-inp {
     border-radius: 25px;
     padding: 0.5rem 3rem 0.5rem 3rem;
+    margin-left: 200px;
   }
 </style>
 
@@ -33,12 +35,18 @@
         <a class="nav-link" href="/listings">Explore</a>
       </div>
 
-      <div class="navbar-nav ms-auto">
-        <form class="d-flex" role="search">
-          <input class="form-control me-2 search-inp" type="search" placeholder="Search destinations" aria-label="Search"/>
-          <button class="btn search-btn" type="submit"><i class="fa-solid fa-magnifying-glass"></i>Search</button>
-        </form>
-      </div>
+      <form class="d-flex" role="search" action="/listings/search" method="GET">
+        <input
+          class="form-control me-2 search-inp"
+          type="search"
+          name="q"
+          placeholder="Search destinations"
+          aria-label="Search"
+        />
+        <button class="btn search-btn" type="submit">
+          <i class="fa-solid fa-magnifying-glass"></i> Search
+        </button>
+      </form>
 
       <div class="navbar-nav ms-auto">
         <a class="nav-link" href="/listings/new">Add new Listing</a>
